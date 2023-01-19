@@ -1,0 +1,32 @@
+const { SlashCommandBuilder } = require('discord.js');
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('remove')
+        .setDescription('Skip specific song from queue')
+        .addIntegerOption(song =>
+            song.setName('number')
+                .setDescription('song number to skip')),
+    aliases: ['ps'],
+    inVoiceChannel: true,
+    execute: async (interaction, client) => {
+        const queue = client.distube.getQueue(interaction)
+        const queueNumber = interaction.options.getInteger('number')
+        console.log(queueNumber)
+        if (!queueNumber) return interaction.reply(`> Bro forgor the number`)
+
+        try {
+            const skippedSong = queue.songs[queueNumber]
+            const skipSong = await queue.songs[queueNumber]
+            interaction.reply(`> Skipped: **${skippedSong.name}** <:sg_blushu:1052846426767511572>`)
+        } catch (e) {
+            console.log(e)
+            interaction.reply('> u broke it dawg')
+        }
+    }
+}
+/* getInt() not exist
+    find a way to get the integer passed
+    wait use the string 
+    idk 
+*/
