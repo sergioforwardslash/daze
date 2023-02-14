@@ -1,16 +1,20 @@
+const fs = require("fs");
+
 module.exports = {
     data: {
         name: `verify`
     },
     execute: async (interaction, client) => {
-        const roleId = '1031620313139654657'
+        const accessRoles = JSON.parse(fs.readFileSync('./src/accessRoles.json'))
+        let roleId = accessRoles[interaction.guild.id]
+
         if (interaction.isButton()) {
             const buttonId = interaction.customId;
             if (buttonId === 'verify') {
                 if (interaction.member.roles.cache.has(roleId)) {
                     interaction.member.roles.remove(roleId)
                     return interaction.reply({
-                        content: 'Successfully removed role!',
+                        content: `Successfully removed <@${roleId}>`,
                         ephemeral: true
                     })
                 } else {

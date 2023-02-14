@@ -26,6 +26,8 @@ module.exports = {
             case message.author.id == '191637171713605632' && message.content.includes('gamer'):
                 message.reply('someone say GAMER???\nhttps://tenor.com/view/mrw-reaction-old-gamer-nerd-moms-basement-gif-4994401');
                 break;
+            case message.author.bot:
+                break;
             case message.author.id != client.user.id && isSeparateWord(message.content, 'hi'):
             case message.author.id != client.user.id && isSeparateWord(message.content, 'hey'):
             case message.author.id != client.user.id && isSeparateWord(message.content, 'wsg'):
